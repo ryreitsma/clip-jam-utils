@@ -6,7 +6,7 @@ class ClipJamUtils
   def self.create_recently_added_playlist(directory, size)
     playlist = M3uPlaylist.new('Recently added')
 
-    sorted_files = Dir.glob("#{directory}/*.mp3").sort_by {|filename| File.mtime(filename) }
+    sorted_files = Dir.glob("#{directory}/*.mp3").sort_by {|filename| File.birthtime(filename) }
     sorted_files.reverse.take(size).each do |filename|
       Mp3Info.open(filename) do |mp3|
         playlist << Song.new(mp3.tag.artist, mp3.tag.title, mp3.length.round, File.basename(filename), mp3.tag.genre_s)
@@ -19,7 +19,7 @@ class ClipJamUtils
   def self.create_playlist_per_genre(directory)
     song_list = SongList.new
 
-    sorted_files = Dir.glob("#{directory}/*.mp3").sort_by {|filename| File.mtime(filename) }
+    sorted_files = Dir.glob("#{directory}/*.mp3").sort_by {|filename| File.birthtime(filename) }
     sorted_files.reverse.each do |filename|
       Mp3Info.open(filename) do |mp3|
         song_list << Song.new(mp3.tag.artist, mp3.tag.title, mp3.length.round, File.basename(filename), mp3.tag.genre_s)
