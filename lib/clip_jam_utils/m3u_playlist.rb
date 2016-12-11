@@ -1,10 +1,12 @@
+require_relative 'song_list'
+
 class M3uPlaylist
-  def initialize(name)
+  def initialize(name, songs = [])
     @name = name
-    @songs = []
+    @songs = songs
   end
 
-  def add_song(song)
+  def << (song)
     @songs << song
   end
 

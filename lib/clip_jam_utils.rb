@@ -9,10 +9,26 @@ class ClipJamUtils
     sorted_files = Dir.glob("#{directory}/*.mp3").sort_by {|filename| File.mtime(filename) }
     sorted_files.reverse.take(size).each do |filename|
       Mp3Info.open(filename) do |mp3|
-        playlist.add_song(Song.new(mp3.tag.artist, mp3.tag.title, mp3.length.round, File.basename(filename)))
+        playlist << Song.new(mp3.tag.artist, mp3.tag.title, mp3.length.round, File.basename(filename), mp3.tag.genre_s)
       end
     end
 
     playlist.save(directory)
+  end
+
+  def self.create_playlist_per_genre(directory)
+    song_list = SongList.new
+
+    Dir.glob("#{directory}/*.mp3").each do |filename|
+      Mp3Info.open(filename) do |mp3|
+        song_list << Song.new(mp3.tag.artist, mp3.tag.title, mp3.length.round, File.basename(filename), mp3.tag.genre_s)
+      end
+    end
+
+    song_list.per_genre.each do |genre, songs|
+      playlist = M3uPlaylist.new(genre.gsub("/", "+"), songs)
+      puts "Start writing playlist #{genre}"
+      playlist.save(directory)
+    end
   end
 end
