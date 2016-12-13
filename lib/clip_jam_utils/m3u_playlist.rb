@@ -6,10 +6,6 @@ class M3uPlaylist
     @songs = songs
   end
 
-  def << (song)
-    @songs << song
-  end
-
   def save(directory)
     # NOTE: The M3U playlist for the Clip Jam must have Windows line endings
     File.open("#{directory}/#{@name}.m3u", 'w', crlf_newline: true) do |file|
