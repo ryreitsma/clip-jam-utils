@@ -1,5 +1,3 @@
-require_relative 'song_list'
-
 class M3uPlaylist
   def initialize(name, songs = [])
     @name = name
