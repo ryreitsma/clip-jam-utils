@@ -10,6 +10,6 @@ class Song
   end
 
   def filename
-    File.basename(location)
+    File.basename(@location)
   end
 end

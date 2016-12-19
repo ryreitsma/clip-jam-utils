@@ -30,5 +30,4 @@ class Directory
   def songs_newer_than(song)
     @songs.take_while {|s| s.filename != song.filename}
   end
-
 end
