@@ -30,4 +30,16 @@ class Sync < Thor
 
     ClipJamUtils.sync_recent_files(options[:source_directory], options[:target_directory])
   end
+
+  desc "all_and_create", "Syncs recently added files to the Clip Jam and create all playlists"
+  method_option :source_directory, default: '/Users/roelof/Google Drive/Music/Automatically Add to iTunes', aliases: '-s'
+  method_option :target_directory, default: '/Volumes/NO NAME/MUSIC', aliases: '-t'
+  def all_and_create
+    puts "You specified source directory #{options[:source_directory]}"
+    puts "You specified target directory #{options[:target_directory]}"
+
+    ClipJamUtils.sync_recent_files(options[:source_directory], options[:target_directory])
+    ClipJamUtils.create_playlist_per_genre(options[:target_directory])
+    ClipJamUtils.create_recently_added_playlist(options[:target_directory], 100)
+  end
 end
