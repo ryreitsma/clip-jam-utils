@@ -22,7 +22,7 @@ end
 
 class Sync < Thor
   desc "recent_files", "Syncs recently added files to the Clip Jam"
-  method_option :source_directory, default: '/Users/roelof/Google Drive/Music/Automatically Add to iTunes', aliases: '-s'
+  method_option :source_directory, default: '/Users/roelof/Downloads', aliases: '-s'
   method_option :target_directory, default: '/Volumes/NO NAME/MUSIC', aliases: '-t'
   def recent_files
     puts "You specified source directory #{options[:source_directory]}"
@@ -32,7 +32,7 @@ class Sync < Thor
   end
 
   desc "all_and_create", "Syncs recently added files to the Clip Jam and create all playlists"
-  method_option :source_directory, default: '/Users/roelof/Google Drive/Music/Automatically Add to iTunes', aliases: '-s'
+  method_option :source_directory, default: '/Users/roelof/Downloads', aliases: '-s'
   method_option :target_directory, default: '/Volumes/NO NAME/MUSIC', aliases: '-t'
   def all_and_create
     puts "You specified source directory #{options[:source_directory]}"
